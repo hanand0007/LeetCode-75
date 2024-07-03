@@ -1,19 +1,23 @@
 class Solution {
-    public List<Boolean> kidsWithCandies(int[] candies, int extraCandies) {
-        // getting maximum number of candy a kid can have.
-        int maxCandy = Integer.MIN_VALUE;
-        for (int i : candies) {
-            if (i > maxCandy)
-                maxCandy = i;
+    public boolean canPlaceFlowers(int[] flowerbed, int n) {
+        if (n == 0) {
+            return true;
         }
-
-        // comparing each kid's candy plus extraCandies with max Candy
-        // and updating the ans list
-        List<Boolean> ans = new ArrayList<>();
-        for (int i : candies) {
-            ans.add(i + extraCandies >= maxCandy);
+        // we can place flower only if
+        // a) current flowerbed is first and current + 1 is empty
+        // b) current flowerbed is last and current - 1 is empty
+        // c) if all of three are empty i.e. current, current + 1 and current - 1
+        for (int i = 0; i < flowerbed.length; i++) {
+            if (flowerbed[i] == 0
+                    && (i == 0 || flowerbed[i - 1] == 0)
+                    && (i == flowerbed.length - 1 || flowerbed[i + 1] == 0)) {
+                flowerbed[i] = 1;
+                n--;
+                if (n == 0) {
+                    return true;
+                }
+            }
         }
-
-        return ans;
+        return false;
     }
 }
